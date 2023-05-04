@@ -1,18 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getContact, getFilter } from '../../redux/selectors';
+import { visible } from '../../redux/selectors';
 import { deleteContacts } from 'redux/options';
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector(getContact);
-  const handleFilter = useSelector(getFilter);
-  const visible = items.filter(e =>
-    e.name.toLowerCase().includes(handleFilter.toLowerCase())
-  );
+  const contacts = useSelector(visible);
+
   return (
     <>
       <ul className="ml-5">
-        {visible.map(({ id, name, number }) => {
+        {contacts.map(({ id, name, number }) => {
           return (
             <li key={id} className="mb-2">
               {name}: {number}

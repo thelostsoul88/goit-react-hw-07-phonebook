@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
-import { getContact } from '../redux/selectors';
+import { selectContact } from '../redux/selectors';
 import { fetchContacts } from 'redux/options';
 import Form from './Form/Form';
 import Filter from './Filter/Filter';
@@ -10,7 +10,7 @@ import Loader from './Loader/Loader';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector(getContact);
+  const { items, isLoading, error } = useSelector(selectContact);
 
   useEffect(() => {
     dispatch(fetchContacts());
