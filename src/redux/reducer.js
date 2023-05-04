@@ -31,6 +31,7 @@ const handleFulfilled = ({ contacts }) => {
 const handleRejected = ({ contacts }, { payload }) => {
   contacts.isLoading = false;
   contacts.error = payload;
+  toast.error(`Oops something wrong.`);
 };
 
 export const phonebookSlicer = createSlice({

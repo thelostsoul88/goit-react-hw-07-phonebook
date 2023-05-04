@@ -1,4 +1,3 @@
-import { toast } from 'react-hot-toast';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   getContacts,
@@ -7,29 +6,17 @@ import {
 } from 'services/contacts-api';
 
 export const fetchContacts = createAsyncThunk('contacts/fetchAll', () => {
-  try {
-    return getContacts();
-  } catch (error) {
-    toast.error(`Error - ${error.message}. Oops something wrong.`);
-  }
+  return getContacts();
 });
 
 export const addContacts = createAsyncThunk('contacts/addContact', contact => {
-  try {
-    return postContacts(contact);
-  } catch (error) {
-    toast.error(`Error - ${error.message}. Oops something wrong.`);
-  }
+  return postContacts(contact);
 });
 
 export const deleteContacts = createAsyncThunk(
   'contacts/deleteContact',
   contactsId => {
-    try {
-      return removeContacts(contactsId);
-    } catch (error) {
-      toast.error(`Error - ${error.message}. Oops something wrong.`);
-    }
+    return removeContacts(contactsId);
   }
 );
 
