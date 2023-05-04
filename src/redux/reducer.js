@@ -3,11 +3,11 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { initialState } from './initialState';
 import { addContacts, deleteContacts, fetchContacts, status } from './options';
 
-const fetchContactReducer = ({ contacts }, { payload }) => {
+const handleGet = ({ contacts }, { payload }) => {
   contacts.items = payload;
 };
 
-const addContactReducer = ({ contacts }, { payload }) => {
+const handleAdd = ({ contacts }, { payload }) => {
   contacts.items.some(
     contact => contact.name.toLowerCase() === payload.name.toLowerCase().trim()
   )
@@ -15,7 +15,7 @@ const addContactReducer = ({ contacts }, { payload }) => {
     : contacts.items.push(payload);
 };
 
-const deleteContactReducer = ({ contacts }, { payload }) => {
+const handleDelete = ({ contacts }, { payload }) => {
   contacts.items = contacts.items.filter(contact => contact.id !== payload.id);
 };
 
@@ -45,9 +45,9 @@ export const phonebookSlicer = createSlice({
   },
   extraReducers: builder =>
     builder
-      .addCase(fetchContacts.fulfilled, fetchContactReducer)
-      .addCase(addContacts.fulfilled, addContactReducer)
-      .addCase(deleteContacts.fulfilled, deleteContactReducer)
+      .addCase(fetchContacts.fulfilled, handleGet)
+      .addCase(addContacts.fulfilled, handleAdd)
+      .addCase(deleteContacts.fulfilled, handleDelete)
       .addMatcher(isAnyOf(...status('pending')), handlePending)
       .addMatcher(isAnyOf(...status('fulfilled')), handleFulfilled)
       .addMatcher(isAnyOf(...status('rejected')), handleRejected),
